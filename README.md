@@ -29,6 +29,7 @@
 
 ```bash
 PORT = <Numero> Este es el puerto que estara escuchando microservicio para ser consumido
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA_NAME" variable para la conexión a la base de datos.
 ```
 
 ## Configuración del proycto
