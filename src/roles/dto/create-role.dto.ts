@@ -6,5 +6,5 @@ export class CreateRoleDto {
   roleId: number;
 
   @IsString()
-  rolename: string;
+  roleName: string;
 }
