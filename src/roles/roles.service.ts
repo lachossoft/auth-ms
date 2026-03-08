@@ -1,15 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import PrismaService from '../prisma/prisma.service';
 
 @Injectable()
-export class RolesService {
-  create(createRoleDto: CreateRoleDto) {
-    return 'This action adds a new role';
+export default class RolesService {
+  constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(RolesService.name);
+
+  async create(createRoleDto: CreateRoleDto) {
+    try {
+      const role = await this.prisma.role.create({ data: createRoleDto });
+      this.logger.log(`Role created successfully: ${JSON.stringify(role)}`);
+      return role;
+    } catch (error: any) {
+      this.logger.error(`Failed to create role: ${error.message}`);
+      throw error;
+    }
   }
 
   findAll() {
-    return `This action returns all roles`;
+    return this.prisma.role.findMany({ where: { deleted: false } });
   }
 
   findOne(id: number) {
